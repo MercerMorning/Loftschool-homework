@@ -108,5 +108,6 @@ echo "<pre>Задание 6</pre>";
         }
         echo "</tr>";
     }
+
     ?>
 </table>
