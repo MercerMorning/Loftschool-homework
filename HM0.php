@@ -2,7 +2,7 @@
 const TEST_CONSTANTA = 'asd';
 $userName = "Igor";
 
-function show_something()
+function showSomething()
 {
     return 'SOMETHING';
 }
@@ -10,5 +10,3 @@ function show_something()
 if (1 == 1) {
     echo 'hi';
 }
-
-?>
