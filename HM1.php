@@ -91,12 +91,18 @@ echo "<pre>Задание 6</pre>";
 <table>
     <?php
     $p = 0;
-    for ($i = 0; $i < 10; $i++) {
+    for ($i = 1; $i <= 10; $i++) {
         $p++;
         echo "<tr>";
         for ($q = 1; $q <= 10; $q++) {
             echo "<td>";
-            echo $q * $p;
+            if ($i % 2 == 0 && $q % 2 == 0) {
+                echo "(" . $q * $p . ")";
+            } elseif ($i % 2 != 0 && $q % 2 != 0) {
+                echo "[" . $q * $p . "]";
+            } else {
+                echo $q * $p;
+            }
             echo "</td>";
         }
         echo "</tr>";
