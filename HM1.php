@@ -43,7 +43,6 @@ switch ($day) {
         break;
     default:
         echo '<br/>Неизвестный день';
-        break;
 }
 
 echo "<pre>Задание 5</pre>";
