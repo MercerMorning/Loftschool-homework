@@ -86,6 +86,7 @@ foreach ($cars as $car) {
 }
 
 echo "<pre>Задание 6</pre>";
+
 ?>
 
 <table>
