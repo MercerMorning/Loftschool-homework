@@ -8,11 +8,11 @@ function task1($strings, $isMerge = 0)
              $result .= $string;
         }
         return $result;
-    } else {
-        foreach ($strings as $string) {
-            echo "<p>$string</p>";
-        }
     }
+    foreach ($strings as $string) {
+        echo "<p>$string</p>";
+    }
+
 }
 
 function task2(...$args)
