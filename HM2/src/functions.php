@@ -1,80 +1,81 @@
 <?php
-
-function task1($strings, $isMerge = 0)
+function task1($strings, $isMergeString = 0)
 {
-    if ($isMerge) {
-        $result = '';
-        foreach ($strings as $string) {
-             $result .= $string;
-        }
-        return $result;
+    $result = "";
+    if ($isMergeString) {
+        return $result = implode("", $strings);
     }
     foreach ($strings as $string) {
-        echo "<p>$string</p>";
+        $result .= "$string\n";
     }
-
+    return $result;
 }
 
-function task2(...$args)
+function task2($action, ...$args)
 {
-    if (is_string($args[0])) {
-
-        $result = $args[1];
-
-        for ($i = 2; $i < sizeof($args); $i++) {
-            if (is_int($args[$i]) || is_double($args[$i])) {
-                switch ($args[0]) {
-                    case '+':
-                        $result += $args[$i];
-                        break;
-                    case '-':
-                        $result -= $args[$i];
-                        break;
-                    case '*':
-                        $result *= $args[$i];
-                        break;
-                    case '/':
-                        $result /= $args[$i];
-                        break;
-                    default:
-                        return;
+    foreach ($args as $arg) {
+        if (!is_int($arg) && !is_float($arg)) {
+            return"Не все аргументы являются целыми или вещественными числами";
+        }
+    }
+    switch ($action) {
+        case "+":
+            return array_sum($args);
+            break;
+        case "-":
+            return array_shift($args) - array_sum($args);
+        case "*":
+            if (in_array(0, $args)) {
+                return "На ноль умножать нельзя";
+            }
+            $result = 1;
+            foreach ($args as $arg) {
+                $result *= $arg;
+            }
+            return $result;
+        case "/":
+            if (in_array(0, $args)) {
+                return "На ноль делить нельзя";
+            }
+            $result = 1;
+            foreach ($args as $arg) {
+                $result /= $arg;
+            }
+            return $result;
+        default:
+            return "ERROR: UNKNOWN ARGUMENT";
+    }
+}
+function task3(int $val1,int $val2)
+{
+    $table = "";
+    for ($row = 1; $row <= $val1; $row++) {
+        for ($col = 1; $col <= $val2; $col++) {
+            $result = $row * $col;
+            if (($row + $col) % 2 == 0) {
+                if ($row % 2 == 0) {
+                    $table .= "($result)";
+                } else {
+                    $table .= "[$result]";
                 }
-
             } else {
-                return;
+                $table .= $result;
             }
         }
-    } else {
-        return;
+        $table .= PHP_EOL;
     }
-    echo $result;
+    return $table;
 }
-
-function task3($val1, $val2)
-{
-    if (is_int($val1) && is_int($val2)) {
-        echo "<table>";
-        $p = 0;
-        for ($i = 1; $i <= $val1; $i++) {
-            $p++;
-            echo "<tr>";
-            for ($q = 1; $q <= $val2; $q++) {
-                echo "<td>";
-                echo $q * $p;
-                echo "</td>";
-            }
-            echo "</tr>";
-        }
-        echo "</table>";
-    } else {
-        echo 'Параметры функции не являются целочисленными';
-    }
-}
-
 function task6($name)
 {
     $fp = fopen($name, "r");
-    $res = fgets($fp, 1024);
+    if (!$fp) {
+        return false;
+    }
+    $result = "";
+    while (!feof($fp)) {
+        $result .= fgets($fp, 1024);
+    }
     fclose($fp);
-    echo $res;
+    return $result;
 }
