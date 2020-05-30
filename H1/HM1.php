@@ -80,4 +80,3 @@ for ($row = 1; $row <= 10; $row++) {
     }
     echo PHP_EOL;
 }
-
