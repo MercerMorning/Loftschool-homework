@@ -7,7 +7,7 @@ trait AddDriver
     }
     public function deleteDriver(){
         if ($this->onDriver == true) {
-            $this->sum -= 100;
+            $this->amountRub -= 100;
         }
         $this->onDriver = false;
     }

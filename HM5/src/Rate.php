@@ -6,7 +6,7 @@ abstract class Rate implements RateInt
     protected $distance;
     protected $time;
     protected $gpsService;
-    public $sum;
+    public $amountRub;
     public function __construct($transmittedDistance, $transmittedTime)
     {
         $this->distance = $transmittedDistance;
@@ -14,7 +14,7 @@ abstract class Rate implements RateInt
     }
     public function getPrice()
     {
-        $this->sum += $this->distance * $this->countDistance + $this->time * $this->countMinutes;
+        $this->amountRub += $this->distance * $this->countDistance + $this->time * $this->countMinutes;
     }
     public function addService($service)
     {

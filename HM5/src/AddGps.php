@@ -7,7 +7,7 @@ trait AddGps
         }
         public function deleteGps(){
             if ($this->onDriver == true) {
-                $this->sum -= 100;
+                $this->amountRub -= 100;
             }
             $this->onGps = false;
         }

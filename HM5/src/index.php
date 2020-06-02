@@ -20,21 +20,20 @@ include "StudentRate.php";
 /**
  * Функции
  */
-$objBasicRate = new BasicRate(3, 60);
-$objBasicRate->setDriver();
+$objBasicRate = new BasicRate(5, 60);
 $objBasicRate->setGps();
 $objBasicRate->getPrice();
-echo $objBasicRate->sum, "</br>";
+echo $objBasicRate->amountRub, "</br>";
 $objStudentRate = new StudentRate(3, 60);
 $objStudentRate->setDriver();
 $objStudentRate->setGps();
 $objStudentRate->getPrice();
-echo $objStudentRate->sum, "</br>";
+echo $objStudentRate->amountRub, "</br>";
 $objHourRate= new HourRate(3, 60);
 $objHourRate->setDriver();
 $objHourRate->setGps();
 $objHourRate->getPrice();
-echo $objHourRate->sum, "</br>";
+echo $objHourRate->amountRub, "</br>";
 
 
 

@@ -10,11 +10,11 @@ class StudentRate extends Rate
     {
         parent::getPrice();
         if ($this->onDriver) {
-            $this->sum += 100;
+            $this->amountRub += 100;
         }
         if ($this->time >= 60) {
             if ($this->onGps) {
-                $this->sum += self::GPS_PRICE_FOR_HOUR * roundPrice($this->time);
+                $this->amountRub += self::GPS_PRICE_FOR_HOUR * roundPrice($this->time);
             }
         }
     }
