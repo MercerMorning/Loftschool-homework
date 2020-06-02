@@ -1,5 +1,10 @@
 <?php
-trait NewDriver
+function round_price($price){
+    if (is_double($price / 60)){
+        return ceil($price / 60);
+    }
+}
+trait AddDriver
 {
     public $sum;
     public function __construct()
@@ -7,9 +12,13 @@ trait NewDriver
         $this->sum = 100;
     }
 }
-trait Gps
+trait AddGps
 {
-
+    public $sum;
+    public function __construct()
+    {
+        $this->sum = 100;
+    }
 }
 interface RateInt //описание метода подсчета цены, метода добавления услуги
 {
@@ -45,23 +54,33 @@ class BasicRate extends Rate {
     public $distancePrice = 10;
     public $timePrice = 3;
 }
+class HourRate extends Rate {
+    public $timePrice = 200;
+    public function __construct($transmittedTime)
+    {
+        $this->time = $transmittedTime;
+    }
+    public function countPrice()
+    {
+        $this->sum += round_price($this->time) * $this->timePrice;
+    }
+}
+class StudentRate extends Rate {
+    public $distancePrice = 4;
+    public $timePrice = 1;
+}
 class Gps implements additionalService
 {
-    public $sum;
-
-    public function __construct()
-    {
-        $this->sum = 15;
-    }
+    use AddGps;
 }
 class AdditionalDriver implements additionalService
 {
-    use NewDriver;
+    use AddDriver;
 }
-$basic = new BasicRate(10, 5);
+$basic = new HourRate(230);
 $gps = new Gps();
 $additionalDriver = new AdditionalDriver();
-$basic->addService($additionalDriver);
+$basic->addService($gps);
 $basic->countPrice();
 echo $basic->sum;
 
