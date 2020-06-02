@@ -5,3 +5,4 @@ Dockerfile
 composer.json
 docker-compose.yaml
 docker
+vendor
