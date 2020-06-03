@@ -1,4 +1,6 @@
 <?php
+
+namespace App;
 class HourRate extends Rate
 {
     use AddGps;
@@ -13,13 +15,14 @@ class HourRate extends Rate
     {
         parent::getPrice();
         if ($this->onDriver) {
-            $this->amountRub += 100;
+            $this->price += 100;
         }
         if ($this->time >= 60) {
             if ($this->onGps) {
-                $this->amountRub += self::GPS_PRICE_FOR_HOUR * roundPrice($this->time);
+                $this->price += self::GPS_PRICE_FOR_HOUR * $this->roundPrice($this->time);
             }
         }
-        $this->amountRub += roundPrice($this->time) * $this->countHours;
+        $this->price += $this->roundPrice($this->time) * $this->countHours;
+        return $this->price;
     }
 }

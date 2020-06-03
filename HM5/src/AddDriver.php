@@ -1,4 +1,6 @@
 <?php
+
+namespace App;
 trait AddDriver
 {
     protected $onDriver = false;
@@ -7,7 +9,7 @@ trait AddDriver
     }
     public function deleteDriver(){
         if ($this->onDriver == true) {
-            $this->amountRub -= 100;
+            $this->price -= 100;
         }
         $this->onDriver = false;
     }

@@ -1,4 +1,6 @@
 <?php
+
+namespace App;
 trait AddGps
 {
         protected $onGps = false;
@@ -7,7 +9,7 @@ trait AddGps
         }
         public function deleteGps(){
             if ($this->onDriver == true) {
-                $this->amountRub -= 100;
+                $this->price -= 100;
             }
             $this->onGps = false;
         }
