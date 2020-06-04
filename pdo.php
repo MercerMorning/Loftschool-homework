@@ -1,25 +1,58 @@
 <?php
+include_once "dbconfig.php";
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=users_bd", "root", "root");
+    $pdo = new PDO(DSN_DB, USERNAME_DB, PASSWORD_DB);
 } catch (PDOException $e) {
-    echo $e->getMessage();
+    echo "Не удалось оформить заказ";
     die;
 }
+
+/**
+ * Полученный Email от метода POST
+ */
 $email = $_POST['email'];
+
+/**
+ * Поиск email в базе данных
+ */
 $queryFind = $pdo->prepare("SELECT * FROM users WHERE `email` = :user_email");
 $queryFind->execute(["user_email" => $email]);
-$currentId = $queryFind->fetchAll()[0]['id'];
+
+/**
+ * Условие (Если был найден email)
+ */
 if ($queryFind->rowCount()){
+
+    /**
+     * Запись в перменную id пользователя с найденным email
+     */
+    $currentId = $queryFind->fetchAll()[0]['id'];
+
+    /**
+     * Увеличение количества заказов на 1
+     */
     $queryUpdate = $pdo->prepare("UPDATE users SET `order_count` = `order_count`+1 WHERE `id`=:user_id");
     $queryUpdate->execute(["user_id" => $currentId]);
     echo 'Ваш заказ был оформлен';
 } else {
-    if (preg_match('/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u', $email)) {
+
+    /**
+     * Если условие было не соблюдено
+     */
+    if (preg_match(REGEX_EMAIL, $email)) {
+
+        /**
+         * Записываем пользователя с новым email в базу данных, устанавливаем что был совершен 1-ый заказ
+         */
         $querySet = $pdo->prepare("INSERT INTO users (`email`, `order_count`) VALUES (:user_email, 1)");
         $querySet->execute(["user_email" => $email]);
         echo 'Ваш заказ был оформлен';
     } else {
-        echo "Неправильный email";
+
+        /**
+         * Если email был введен неверно
+         */
+        echo "Не удалось оформить заказ. Неправильная форма email";
     }
 }
 
