@@ -10,7 +10,7 @@ try {
 /**
  * Полученный Email от метода POST
  */
-$email = $_POST['email'];
+$email = $_GET['email'];
 
 /**
  * Поиск email в базе данных
@@ -39,7 +39,7 @@ if ($queryFind->rowCount()){
     /**
      * Если условие было не соблюдено
      */
-    if (preg_match(REGEX_EMAIL, $email)) {
+    if (preg_match(REGEX_EMAIL_DB, $email)) {
 
         /**
          * Записываем пользователя с новым email в базу данных, устанавливаем что был совершен 1-ый заказ
@@ -47,13 +47,20 @@ if ($queryFind->rowCount()){
         $querySet = $pdo->prepare("INSERT INTO users (`email`, `order_count`) VALUES (:user_email, 1)");
         $querySet->execute(["user_email" => $email]);
         echo 'Ваш заказ был оформлен';
+        die;
     } else {
 
         /**
          * Если email был введен неверно
          */
         echo "Не удалось оформить заказ. Неправильная форма email";
+        die;
     }
+}
+
+if (!empty($_REQUEST["ajax"])) {
+    header("Content-type: application/json");
+    echo 'hi';
 }
 
 
