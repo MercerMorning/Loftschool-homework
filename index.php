@@ -1,3 +1,11 @@
+<?php
+if (!empty($_POST)) {
+    include_once __DIR__ . "/../src/config.php";
+    include_once __DIR__ . "/../src/pdo.php";
+    main($_POST['email']);
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -365,7 +373,6 @@
           <div class="container">
             <div class="section__title">Закажите доставку</div>
             <div class="order__form">
-<!--              <form class="order__form-tag" id="order-form" action="pdo.php" method="post">-->
                 <form class="order__form-tag" id="order-form">
                 <div class="order__form-col">
                   <div class="order__form-row order__form-row_double">
@@ -435,7 +442,7 @@
                       </label>
                     </div>
                     <div class="order__form-row">
-                      <input class="order__form-button" name="" type="submit" value="Заказать" onclick="sendAjax()">
+                      <input class="order__form-button" name="" type="button" value="Заказать" onclick="sendAjax()">
                       <input class="order__form-button order__form-button_reset" name="" type="reset" value="Очистить">
                       <div class="order-result" style="color:red;"></div>
                     </div>
@@ -504,19 +511,13 @@
     <script src="./js/vendors.min.js"></script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script src="./js/main.min.js"></script>
-    <script>/*
-      function sendAjax() {
-        let email = $("#email").val();
-        $.post("pdo.php", {email: email}, function (resp) {
-          console.log(resp);
-          $(".order-result").html(response);
-        })
-      }*/
+    <script>
     function sendAjax() {
+      console.log('click');
       let email = $("#email").val();
       $.ajax({
-        url: "src/pdo.php",
-        method: 'GET',
+        url: "/index.php",
+        method: 'POST',
         data: {email: email},
         success: function (response) {
           $(".order-result").html(response);
